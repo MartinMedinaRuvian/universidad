@@ -26,7 +26,7 @@ public class Universidad {
                 break;
             }
         }
-
+        
         return alumno;
     }
 
