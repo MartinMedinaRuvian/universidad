@@ -7,8 +7,8 @@ public class ControlVista {
   private ControlNegocio control = new ControlNegocio();
   
   //INICIO CRUD ALUMNO
-  public void agregarAlumno(String nombre, String apellido, int DNI, String direccion, String email, int edad){
-      control.agregarAlumno(new Alumno(nombre, apellido, DNI, direccion, email, edad));
+  public boolean agregarAlumno(String nombre, String apellido, int DNI, String direccion, String email, int edad){
+     return control.agregarAlumno(new Alumno(nombre, apellido, DNI, direccion, email, edad));
   }
   
   public void eliminarAlumno(int DNI){
@@ -23,7 +23,13 @@ public class ControlVista {
   }
   
   public String consultarAlumno(int DNI){
-      return control.consultarAlumno(DNI).toString();
+      String msg = "";
+      if (control.consultarAlumno(DNI) != null) {
+          msg = control.consultarAlumno(DNI).toString();
+      }else{
+          msg = "No existe el alumno con DNI " + DNI;
+      }
+      return msg;
   }
   
   public String verAlumnos(){
@@ -32,8 +38,8 @@ public class ControlVista {
   //FIN CRUD ALUMNO
   
   //INICIO CRUD ASIGNATURA
-  public void agregarAsignatura(int codigo, String nombre, int numeroCreditos){
-      control.agregarAsignatura(new Asignatura(codigo, nombre, numeroCreditos));
+  public boolean agregarAsignatura(int codigo, String nombre, int numeroCreditos){
+    return control.agregarAsignatura(new Asignatura(codigo, nombre, numeroCreditos));
   }
   
   public void eliminarAsignatura(int codigo){
@@ -48,7 +54,13 @@ public class ControlVista {
   }
   
   public String consultarAsignatura(int codigo){
-      return control.consultarAsignatura(codigo).toString();
+      String msg = "";
+      if (control.consultarAsignatura(codigo) != null) {
+          msg = control.consultarAsignatura(codigo).toString();
+      }else{
+          msg = "No existe la asignatura con el código " + codigo;
+      }
+      return msg;
   }
   
   public String verAsignaturas(){

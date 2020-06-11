@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Control.ControlVista;
@@ -6,41 +5,40 @@ import javax.swing.JOptionPane;
 
 public class Vista extends javax.swing.JFrame {
 
-    
     private ControlVista control = new ControlVista();
-  
+
     public Vista() {
         initComponents();
-         this.setTitle("UNIVERSIDAD");
+        this.setTitle("UNIVERSIDAD");
         this.setLocationRelativeTo(null);
     }
 
-    private void agregarAlumno(){
-        control.agregarAlumno(txtnombreEstudiante.getText(), txtapellido.getText(),
-                Integer.parseInt(txtdni.getText()), txtdireccion.getText(), txtemail.getText(), Integer.parseInt(txtedad.getText()));
-        cmbalumnos.addItem(txtdni.getText());
+    private void agregarAlumno() {
+        if (control.agregarAlumno(txtnombreEstudiante.getText(), txtapellido.getText(),
+                Integer.parseInt(txtdni.getText()), txtdireccion.getText(), txtemail.getText(), Integer.parseInt(txtedad.getText()))) {
+            cmbalumnos.addItem(txtdni.getText());
+        }
+
     }
-    
-    private void agregarAsignatura(){
-        control.agregarAsignatura(Integer.parseInt(txtcodigo.getText()), txtnombreAsignatura.getText(), Integer.parseInt(txtnumeroCreditos.getText()));
-        cmbasignatura.addItem(txtcodigo.getText());
+
+    private void agregarAsignatura() {
+        if (control.agregarAsignatura(Integer.parseInt(txtcodigo.getText()), txtnombreAsignatura.getText(), Integer.parseInt(txtnumeroCreditos.getText()))) {
+            cmbasignatura.addItem(txtcodigo.getText());
+        }
     }
-    
-    private void matricular(){
-        control.matricularAsignatura
-        (Integer.parseInt(cmbalumnos.getItemAt(cmbalumnos.getSelectedIndex())),
+
+    private void matricular() {
+        control.matricularAsignatura(Integer.parseInt(cmbalumnos.getItemAt(cmbalumnos.getSelectedIndex())),
                 Integer.parseInt(cmbasignatura.getItemAt(cmbasignatura.getSelectedIndex())));
     }
-    
-    private void buscarAlumno(){
-        JOptionPane.showMessageDialog(null, control.consultarAlumno(Integer.parseInt(txtdnBuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+    private void buscarAlumno() {
+        JOptionPane.showMessageDialog(null, control.consultarAlumno(Integer.parseInt(txtdniBuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
     }
-    
-    private void buscarAsignatura(){
+
+    private void buscarAsignatura() {
         JOptionPane.showMessageDialog(null, control.consultarAsignatura(Integer.parseInt(txtcodigobuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
     }
-    
- 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,7 +80,7 @@ public class Vista extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txtdnBuscar = new javax.swing.JTextField();
+        txtdniBuscar = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -384,7 +382,7 @@ public class Vista extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Buscar estudiante: ");
 
-        txtdnBuscar.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        txtdniBuscar.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -486,7 +484,7 @@ public class Vista extends javax.swing.JFrame {
                             .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtdnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtdniBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
                             .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,7 +509,7 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtdnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdniBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
@@ -589,68 +587,136 @@ public class Vista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        agregarAsignatura();
-         JOptionPane.showMessageDialog(null,"Agregada correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        if (txtcodigo.getText().length() > 0) {
+            agregarAsignatura();
+        }else{
+            JOptionPane.showMessageDialog(null,"Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        agregarAlumno();
-        JOptionPane.showMessageDialog(null,"Agregado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        if (txtdni.getText().length() > 0) {
+            agregarAlumno();
+        }else{
+            JOptionPane.showMessageDialog(null,"Ingrese los datos", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         matricular();
-         JOptionPane.showMessageDialog(null,"Matriculada correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        JOptionPane.showMessageDialog(null, "Matriculada correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        buscarAlumno();
+        if (txtdniBuscar.getText().length() > 0) {
+            buscarAlumno();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        control.eliminarAlumno(Integer.parseInt(txtdnBuscar.getText()));
-        JOptionPane.showMessageDialog(null,"Eliminado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        if (txtdniBuscar.getText().length() > 0) {
+            control.eliminarAlumno(Integer.parseInt(txtdniBuscar.getText()));
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        control.modificarAlumno(Integer.parseInt(txtdni.getText()), 
-                txtnombreEstudiante.getText(), txtapellido.getText(), 
-                Integer.parseInt(txtdni.getText()), txtdireccion.getText(),
-                txtemail.getText(), Integer.parseInt(txtedad.getText()));
-        
-        JOptionPane.showMessageDialog(null,"Modificado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        if (txtdniBuscar.getText().length() > 0) {
+
+            control.modificarAlumno(Integer.parseInt(txtdni.getText()),
+                    txtnombreEstudiante.getText(), txtapellido.getText(),
+                    Integer.parseInt(txtdni.getText()), txtdireccion.getText(),
+                    txtemail.getText(), Integer.parseInt(txtedad.getText()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        buscarAsignatura();
+        if (txtcodigobuscar.getText().length() > 0) {
+            buscarAsignatura();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        control.eliminarAsignatura(Integer.parseInt(txtcodigobuscar.getText()));
-        JOptionPane.showMessageDialog(null,"Eliminado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        if (txtcodigobuscar.getText().length() > 0) {
+
+            control.eliminarAsignatura(Integer.parseInt(txtcodigobuscar.getText()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        control.modificarAsignatura(Integer.parseInt(txtcodigobuscar.getText()), 
-                Integer.parseInt(txtcodigo.getText()), txtnombreAsignatura.getText(), 
-                Integer.parseInt(txtnumeroCreditos.getText()));
-        JOptionPane.showMessageDialog(null,"Modificado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        if (txtcodigobuscar.getText().length() > 0) {
+
+            control.modificarAsignatura(Integer.parseInt(txtcodigobuscar.getText()),
+                    Integer.parseInt(txtcodigo.getText()), txtnombreAsignatura.getText(),
+                    Integer.parseInt(txtnumeroCreditos.getText()));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        JOptionPane.showMessageDialog(null,control.verAsignaturasMatriculadasPorAlumno(Integer.parseInt(txtdnBuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        if (txtdniBuscar.getText().length() > 0) {
+            JOptionPane.showMessageDialog(null, control.verAsignaturasMatriculadasPorAlumno(Integer.parseInt(txtdniBuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        JOptionPane.showMessageDialog(null, control.conocerAlumnosMatriculadosAsignatura(Integer.parseInt(txtcodigobuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        if (txtcodigobuscar.getText().length() > 0) {
+
+            JOptionPane.showMessageDialog(null, control.conocerAlumnosMatriculadosAsignatura(Integer.parseInt(txtcodigobuscar.getText())), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        JOptionPane.showMessageDialog(null, control.verAlumnos(), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        if (txtdniBuscar.getText().length() > 0) {
+            JOptionPane.showMessageDialog(null, control.verAlumnos(), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        JOptionPane.showMessageDialog(null, control.verAsignaturas(), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        if (txtcodigobuscar.getText().length() > 0) {
+
+            JOptionPane.showMessageDialog(null, control.verAsignaturas(), "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese el dato", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+
+
     }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
@@ -732,8 +798,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtcodigobuscar;
     private javax.swing.JTextField txtdireccion;
-    private javax.swing.JTextField txtdnBuscar;
     private javax.swing.JTextField txtdni;
+    private javax.swing.JTextField txtdniBuscar;
     private javax.swing.JTextField txtedad;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtnombreAsignatura;

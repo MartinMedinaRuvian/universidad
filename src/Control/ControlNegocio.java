@@ -10,8 +10,8 @@ public class ControlNegocio implements ReglasNegocio{
     private Universidad universidad = new Universidad();
 
     @Override
-    public void agregarAlumno(Alumno alumno) {
-       universidad.agregarAlumno(alumno);
+    public boolean agregarAlumno(Alumno alumno) {
+        return universidad.agregarAlumno(alumno);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class ControlNegocio implements ReglasNegocio{
     }
 
     @Override
-    public void agregarAsignatura(Asignatura asignatura) {
-      universidad.agregarAsignatura(asignatura);
+    public boolean agregarAsignatura(Asignatura asignatura) {
+      return universidad.agregarAsignatura(asignatura);
     }
 
     @Override

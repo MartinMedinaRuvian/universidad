@@ -2,6 +2,7 @@ package Negocio;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import javax.swing.JOptionPane;
 
 public class Universidad {
 
@@ -9,8 +10,15 @@ public class Universidad {
     private Hashtable<Integer, Asignatura> asignaturas = new Hashtable<>();
 
     //INICIO CRUD ALUMNOS
-    public void agregarAlumno(Alumno alumno) {
-        alumnos.put(alumno.getDNI(), alumno);
+    public boolean agregarAlumno(Alumno alumno) {
+        if (consultarAlumno(alumno.getDNI()) == null) {
+             alumnos.put(alumno.getDNI(), alumno);
+              JOptionPane.showMessageDialog(null, "Guardado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+             return true;
+        }else{
+            JOptionPane.showMessageDialog(null,"El alumno con DNI " + alumno.getDNI() + " ya existe", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+        return false;
     }
 
     public Alumno consultarAlumno(int DNIConsultar) {
@@ -26,7 +34,7 @@ public class Universidad {
                 break;
             }
         }
-        
+
         return alumno;
     }
 
@@ -38,6 +46,8 @@ public class Universidad {
             aux = DNI.nextElement();
             if (aux == DNIEliminar) {
                 alumnos.remove(aux);
+                JOptionPane.showMessageDialog(null, "Eliminado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+                break;
             }
         }
     }
@@ -45,16 +55,22 @@ public class Universidad {
     public void modificarAlumno(int DNIModificar, Alumno infoNueva) {
         int aux = 0;
         Alumno infoActual = consultarAlumno(DNIModificar);
-        Enumeration<Integer> DNI = alumnos.keys();
 
-        while (DNI.hasMoreElements()) {
-            aux = DNI.nextElement();
-            if (aux == infoActual.getDNI()) {
-                alumnos.replace(aux, infoActual, infoNueva);
+        if (infoActual != null) {
+            Enumeration<Integer> DNI = alumnos.keys();
+
+            while (DNI.hasMoreElements()) {
+                aux = DNI.nextElement();
+                if (aux == infoActual.getDNI()) {
+                    alumnos.replace(aux, infoActual, infoNueva);
+                    JOptionPane.showMessageDialog(null,"Modificado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(null,"No existe el alumno con DNI " + DNIModificar, "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
         }
+
     }
-    
 
     public String verAlumnos() {
         int aux = 0;
@@ -72,8 +88,15 @@ public class Universidad {
 
     //FIN CRUD ALUMNOS
     //INICIO CRUD ASIGNATURAS
-    public void agregarAsignatura(Asignatura asignatura) {
-        asignaturas.put(asignatura.getCodigo(), asignatura);
+    public boolean agregarAsignatura(Asignatura asignatura) {
+        if (consultarAsignatura(asignatura.getCodigo()) == null) {
+             asignaturas.put(asignatura.getCodigo(), asignatura);
+             JOptionPane.showMessageDialog(null, "Guardado correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+             return true;
+        }else{
+            JOptionPane.showMessageDialog(null,"La asignatura con el código " + asignatura.getCodigo() + " ya existe", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+        return false;
     }
 
     public Asignatura consultarAsignatura(int codigoConsultar) {
@@ -101,6 +124,8 @@ public class Universidad {
             aux = codigo.nextElement();
             if (aux == codigoEliminar) {
                 asignaturas.remove(aux);
+                JOptionPane.showMessageDialog(null,"Eliminada correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+                break;
             }
         }
     }
@@ -108,14 +133,22 @@ public class Universidad {
     public void modificarAsignaturas(int codigoModificar, Asignatura infoNueva) {
         int aux = 0;
         Asignatura infoActual = consultarAsignatura(codigoModificar);
-        Enumeration<Integer> codigo = asignaturas.keys();
+        
+        if (infoActual != null) {
+                   Enumeration<Integer> codigo = asignaturas.keys();
 
         while (codigo.hasMoreElements()) {
             aux = codigo.nextElement();
             if (aux == infoActual.getCodigo()) {
                 asignaturas.replace(aux, infoActual, infoNueva);
+                JOptionPane.showMessageDialog(null,"Modificada correctamente", "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
             }
         }
+        }else{
+            JOptionPane.showMessageDialog(null,"No existe la asignatura con código " + codigoModificar, "Yolenith software le informa:", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+        
+ 
     }
 
     public String verAsignaturas() {
